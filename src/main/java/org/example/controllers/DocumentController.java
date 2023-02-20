@@ -9,17 +9,41 @@ Version 1.0
 */
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.Getter;
+import org.example.handler.ResourceNotFoundException;
+import org.example.models.Documents;
+import org.example.repos.DocumentRepo;
+import org.example.services.DocumentService;
+import org.example.utils.ConstantMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@RestController
+import java.util.Map;
+
+@Controller
 @RequestMapping("api/v1/")
 public class DocumentController {
-    @PostMapping("uploadsFile")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
+
+    @Getter
+    private DocumentService documentService;
+    private final DocumentRepo documentRepo;
+
+    @Autowired
+    public DocumentController(DocumentService documentService, DocumentRepo documentRepo) {
+        this.documentService = documentService;
+        this.documentRepo = documentRepo;
+    }
+
+    @PostMapping("uploadsData")
+    public String uploadFile(
+            @RequestBody Documents documents,
+            @RequestHeader Map<String, String> headers,
+            @RequestParam Map<String, String> params,
+            @RequestParam("file") MultipartFile file
+    ) throws ResourceNotFoundException {
+        if (documents == null) throw new ResourceNotFoundException(ConstantMessage.ERROR_NO_CONTENT);
         // code to handle file upload
         return "File uploaded successfully!";
 }

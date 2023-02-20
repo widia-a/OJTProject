@@ -30,6 +30,9 @@ public class Documents {
 //    @JoinColumn(name = "FileId")
 //    private fileDB fileDB;
 
+    @Column(name = "NamaKonsumen", length = 100, nullable = true)
+    private String namaKonsumen;
+
     @Column(name = "AktePendirian", length = 150, nullable = true)
     private String aktePendirian;
 
@@ -62,6 +65,14 @@ public class Documents {
 
     public Long getDocId() {
         return docId;
+    }
+
+    public String getNamaKonsumen() {
+        return namaKonsumen;
+    }
+
+    public void setNamaKonsumen(String namaKonsumen) {
+        this.namaKonsumen = namaKonsumen;
     }
 
     public void setDocId(Long docId) {

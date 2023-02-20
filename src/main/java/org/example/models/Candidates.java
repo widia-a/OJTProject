@@ -23,14 +23,17 @@ public class Candidates {
     @Column(name = "last_name")
     private String lastName;
 
+    @Lob
     @Column(name = "profile_picture")
-    private String profilePicture;
+    private byte[] profilePicture;
 
+    @Lob
     @Column(name = "photo_id")
-    private String photoId;
+    private byte[] photoId;
 
+    @Lob
     @Column(name = "document")
-    private String document;
+    private byte[] document;
 
     public Integer getId() {
         return id;
@@ -56,27 +59,27 @@ public class Candidates {
         this.lastName = lastName;
     }
 
-    public String getProfilePicture() {
+    public byte[] getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(String profilePicture) {
+    public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
     }
 
-    public String getPhotoId() {
+    public byte[] getPhotoId() {
         return photoId;
     }
 
-    public void setPhotoId(String photoId) {
+    public void setPhotoId(byte[] photoId) {
         this.photoId = photoId;
     }
 
-    public String getDocument() {
+    public byte[] getDocument() {
         return document;
     }
 
-    public void setDocument(String document) {
+    public void setDocument(byte[] document) {
         this.document = document;
     }
 }

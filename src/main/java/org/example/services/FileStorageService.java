@@ -13,6 +13,7 @@ import org.example.handler.ResourceNotFoundException;
 import org.example.models.fileDB;
 import org.example.repos.FileDBRepository;
 import org.example.utils.ConstantMessage;
+import org.example.utils.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -43,5 +45,12 @@ public class FileStorageService {
 
     public Stream<fileDB> getAllFiles() {
         return fileDBRepository.findAll().stream();
+    }
+
+    public fileDB downloadImage(String Name){
+        Optional<fileDB> dbImageData = fileDBRepository.findFileByName(Name);
+        byte[] images= ImageUtils.decompressImage(dbImageData.get().getData());
+        String format = dbImageData.get().getType();
+        return dbImageData.get();
     }
 }

@@ -9,9 +9,11 @@ Version 1.0
 */
 
 import org.example.models.Candidates;
+import org.example.models.Kontraks;
 import org.example.repos.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,5 +26,16 @@ public class CandidateService {
     public List<Candidates> findAllCandidates() {
         return candidateRepository.findAll();
     }
+
+    public void save(String firstName, String lastName, MultipartFile multipartFile1, MultipartFile multipartFile2, MultipartFile multipartFile3) throws Exception {
+        Candidates candidates = new Candidates();
+        candidates.setFirstName(firstName);
+        candidates.setLastName(lastName);
+        candidates.setProfilePicture(multipartFile1.getBytes());
+        candidates.setDocument(multipartFile2.getBytes());
+        candidates.setPhotoId(multipartFile3.getBytes());
+        candidateRepository.save(candidates);
+    }
+
 
 }

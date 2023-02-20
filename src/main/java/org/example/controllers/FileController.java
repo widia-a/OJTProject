@@ -18,6 +18,7 @@ import org.example.utils.ConstantMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -107,9 +108,12 @@ public class FileController {
 
         File file = new File(filesDB.getName());
 
+        fileDB files = storageService.downloadImage(name);
+
         return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filesDB.getName() + "\"") //preview in web
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filesDB.getName() + "\"") //download file
+                .contentType(MediaType.valueOf(files.getType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filesDB.getName() + "\"") //preview in web
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filesDB.getName() + "\"") //download file
                 .body(filesDB.getData());
 
 
